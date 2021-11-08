@@ -1,0 +1,42 @@
+Clean-MailboxDatabase "WESC-EX-DB-01"
+Clean-MailboxDatabase "WESC-EX-DB-02"
+Clean-MailboxDatabase "WESC-EX-DB-03"
+
+
+Set-DynamicDistributionGroup -Identity '#Eagle Well Servicing - Calgary Office' -RecipientContainer WESCUsers -RecipientFilter{((MemberOfGroup -eq 'CN=\#Eagle Well Servicing - Calgary Office Universal,OU=WESCDistributionGroups,OU=WESCUsers,DC=wesc,DC=internal') -or ((RecipientType -eq 'UserMailbox') -and (Company -eq 'Eagle Well Servicing') -and (City -eq 'Calgary')))}
+
+
+Set-DynamicDistributionGroup -Identity 'Corporate Acknowledgements' -RecipientContainer WESCUsers -RecipientFilter{(((-not(MemberOfGroup -eq "CN=CorpAckExclusionList,OU=WESCDistributionGroups,OU=WESCUsers,DC=wesc,DC=internal")) -and ((-not(Title -like 'Relief')) -and (-not(Title -like 'Rig Manager')) -and (-not(Title -like 'Horizon Rig Tablet')) -and (-not(Title -like 'Stoneham Rig')) -and (-not(Title -like 'Horizon Rig')) -and (-not(Title -like 'Relief')) -and (-not(Title -eq 'Rig Manager'))) -and (((RecipientType -eq 'UserMailbox')) -or ((RemoterecipientType -eq 'Migrated')) -or ((RecipientType -eq 'MailContact')))))}
+
+
+
+Set-DynamicDistributionGroup -Identity ‘WesternFieldServices-LeducOfficeDynamic’ -ModerationEnabled $true -Moderatedby 'dcaron', 'rforsythe' -ByPassModerationFromSendersOrMembers 'ByPassModeration' -SendModerationNotifications Internal
+++
+
+Set-DynamicDistributionGroup -Identity 'Corporate Acknowledgements' -RecipientContainer WESCUsers -RecipientFilter{((MemberOfGroup -eq 'CN=CorporateAcknowledgementsUniversal,OU=WESCDistributionGroups,OU=WESCUsers,DC=wesc,DC=internal') -or ((RecipientType -eq 'UserMailbox')-and -Not(Title -eq 'Rig Manager') -and -Not(Title -eq 'Relief Rig Manager') -and -Not(Title -eq 'Horizon Rig Tablet') -and -Not(Title -eq 'Stoneham Rig') -and -Not(Department -eq 'System Mailboxes') -and -Not(Title -eq 'Eagle Relief Push') -and -Not(Title -eq 'Horizon Rig')))}
+
+-----------------------------
+Script to verify all of the members Julia wants removed were not included:
+-----------------------------
+$DDG = "Corporate Acknowledgements"
+$alias = "CorporateAcknowledgements"
+$OU = "OU=WESCUsers,DC=wesc,DC=internal"
+Get-DynamicDistributionGroup $DDG | ForEach {Get-Recipient -RecipientPreviewFilter $_.RecipientFilter -OrganizationalUnit $_.RecipientContainer} | Select DisplayName | Format-Table > C:\Tangoe\JuliaMembersList.txt
+
+$group = "Corporate Acknowledgements"
+Get-Recipient -RecipientPreviewFilter (Get-DynamicDistributionGroup $group).RecipientFilter | Select DisplayName > c:\temp\JV2.csv
+
+
+
+Spam and phish email sample submitted to Microsoft Email and Security department.
+Spam and phish email sample submitted to Cisco Email and Security department.
+No further action require from WESC IT or employee.
+
+This is to document the incident and to have count of incidents in the system.
+Issue being dealt on:
+IR199096 - MS OFFICE | Office365 and CES Issue | Emails bypass CES
+
+
+
+
+Set-DynamicDistributionGroup -Identity '#Aero Rental Services - Blackfalds Office' -RecipientContainer WESCUsers -RecipientFilter{((MemberOfGroup -eq 'CN=\#Aero Rental Services - BlackfaldsHidden,OU=WESCDistributionGroups,OU=WESCUsers,DC=wesc,DC=internal') -or (((RecipientType -eq 'UserMailbox') -and (Company -eq 'Aero Rental Services') -and (City -eq 'Blackfalds')) -or ((RemoterecipientType -eq 'Migrated') -and (Company -eq 'Aero Rental Services') -and (City -eq 'Blackfalds')) -or ((RecipientType -eq 'MailContact') -and (Company -eq 'Aero Rental Services') -and (City -eq 'Blackfalds'))))}
