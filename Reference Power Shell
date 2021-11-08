@@ -10,7 +10,7 @@ Set-DynamicDistributionGroup -Identity 'Corporate Acknowledgements' -RecipientCo
 
 
 
-Set-DynamicDistributionGroup -Identity ‘WesternFieldServices-LeducOfficeDynamic’ -ModerationEnabled $true -Moderatedby 'dcaron', 'rforsythe' -ByPassModerationFromSendersOrMembers 'ByPassModeration' -SendModerationNotifications Internal
+Set-DynamicDistributionGroup -Identity ‘WesternFieldServices-LeducOfficeDynamic’ -ModerationEnabled $true -Moderatedby 'username', 'username' -ByPassModerationFromSendersOrMembers 'ByPassModeration' -SendModerationNotifications Internal
 ++
 
 Set-DynamicDistributionGroup -Identity 'Corporate Acknowledgements' -RecipientContainer WESCUsers -RecipientFilter{((MemberOfGroup -eq 'CN=CorporateAcknowledgementsUniversal,OU=WESCDistributionGroups,OU=WESCUsers,DC=wesc,DC=internal') -or ((RecipientType -eq 'UserMailbox')-and -Not(Title -eq 'Rig Manager') -and -Not(Title -eq 'Relief Rig Manager') -and -Not(Title -eq 'Horizon Rig Tablet') -and -Not(Title -eq 'Stoneham Rig') -and -Not(Department -eq 'System Mailboxes') -and -Not(Title -eq 'Eagle Relief Push') -and -Not(Title -eq 'Horizon Rig')))}
@@ -30,7 +30,6 @@ Get-Recipient -RecipientPreviewFilter (Get-DynamicDistributionGroup $group).Reci
 
 Spam and phish email sample submitted to Microsoft Email and Security department.
 Spam and phish email sample submitted to Cisco Email and Security department.
-No further action require from WESC IT or employee.
 
 This is to document the incident and to have count of incidents in the system.
 Issue being dealt on:
